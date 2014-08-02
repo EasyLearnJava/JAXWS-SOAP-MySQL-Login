@@ -1,0 +1,68 @@
+<project name="LoginModule" default="dist" basedir=".">
+	<description>
+		simple example build file
+	</description>
+	<!-- set global properties for this build -->
+	<property name="src" location="src" />
+	<property name="build" location="build" />
+	<property name="dist" location="dist" />
+
+
+	<target name="compile" description="compile the source ">
+		<!-- Create the time stamp -->
+		<tstamp />
+		<!-- Delete and Create the build directory structure used by compile -->
+		<delete dir="${build}" />
+		<mkdir dir="${build}" />
+		<mkdir dir="${dist}" />
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${src}" destdir="${build}" />
+	</target>
+
+	<target name="clean" description="clean up">
+		<!-- Delete the ${build} and ${dist} directory trees -->
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+	</target>
+
+	<target name="war" depends="compile">
+		<!-- <war destfile="dist/JAXWS-SOAP-MySQL-Login_${DSTAMP}_${TSTAMP}.war" webxml="WebContent/WEB-INF/web.xml"> -->
+		<war destfile="${dist}/JAXWS-SOAP-MySQL-Login.war" webxml="WebContent/WEB-INF/web.xml">
+			<fileset dir="WebContent" />
+			<lib dir="WebContent/WEB-INF/lib" />
+			<classes dir="build" />
+			<!-- Enters the below details in to the manifest file -->
+			<manifest>
+				<attribute name="Built-By" value="Raghu" />
+				<attribute name="Built-On" value="${DSTAMP}" />
+				<attribute name="Built-At" value="${TSTAMP}" />
+			</manifest>
+		</war>
+	</target>
+
+
+	<!-- ANT command from CMD calls the default target, which builds and packages 
+		the application into a WAR file -->
+	<target name="dist" depends="war" description="generate the distribution">
+
+	</target>
+
+	<!-- http://docs.oracle.com/javase/6/docs/technotes/tools/share/wsimport.html -->
+	<!-- The wsimport tool is used to parse an existing Web Services Description 
+		Language (WSDL) file and generate required files (JAX-WS portable artifacts) 
+		for web service client to access the published web services. This wsimport 
+		tool is available in the $JDK/bin folder. -->
+	<!-- -s generate source .java files for client -->
+	<!-- -p Specifying a target package which overrides the default one -->
+	<!-- -d Specify where to place generated output files -->
+	<property name="jdk.home" value="C:\Java\jdk1.7.0_51" />
+	<target name="wsimport">
+		<mkdir dir="${dist}" />
+		<exec executable="${jdk.home}/bin/wsimport">
+			<arg
+				line="-keep  -s ${dist} -p com.easylearnjava.consumer.webservice.jaxws
+        -d ${dist}  http://localhost:8080/JAXWS-SOAP-MySQL-Login/login?wsdl"></arg>
+		</exec>
+	</target>
+	<!-- wsgen -verbose -keep -cp . com.easylearnjava.provider.webservice.LoginImplementation -wsdl -->
+</project>
