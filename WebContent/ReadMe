@@ -1,1 +1,7 @@
-Place the jars in forTomcatLib folder into your Tomcat server -- lib folder 
+Place the jars in forTomcatLib folder into your Tomcat server -- lib folder
+
+NOTE: 
+The below steps are not mandatory, but at times when the local tomcat server location 
+points to "Use workspace metadat" then there might be an error while you run the project
+like the implementation class not found (because the class files might not be generated on the server)
+To resolve the error point the tomcat to "Use Tomcat installation" option ... :) 
