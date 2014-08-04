@@ -4,7 +4,4 @@
 	<endpoint name="LoginService" implementation="com.easylearnjava.provider.webservice.LoginImplementation"
 		url-pattern="/login" />
 		
-		<!-- http://shrubbery.homeip.net/c/display/W/Producing+a+Web+Service+with+JAX-WS+and+JAXB -->
-		<!-- http://shrubbery.homeip.net/c/display/W/JAXB+Date+and+Time+Marshalling -->
-		<!-- https://weblogs.java.net/blog/2006/06/06/jaxb-and-interfaces -->
 </endpoints>
